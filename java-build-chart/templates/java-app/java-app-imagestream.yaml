@@ -1,0 +1,11 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  labels:
+    app: {{ .Values.microservice.name }}
+    app.kubernetes.io/component: {{ .Values.microservice.name }}
+    app.kubernetes.io/instance: {{ .Values.microservice.name }}  
+  name: {{ .Values.microservice.name }}
+spec:
+  lookupPolicy:
+    local: false

@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: {{ .Values.microservice.name }}
+    app.kubernetes.io/component: {{ .Values.microservice.name }}
+    app.kubernetes.io/instance: {{ .Values.microservice.name }}
+  name: {{ .Values.microservice.name }}
+spec:
+  ports:
+  - name: 8080-tcp
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  - name: 8443-tcp
+    port: 8443
+    protocol: TCP
+    targetPort: 8443
+  - name: 8778-tcp
+    port: 8778
+    protocol: TCP
+    targetPort: 8778
+  selector:
+    app: {{ .Values.microservice.name }}
+  sessionAffinity: None
+  type: ClusterIP

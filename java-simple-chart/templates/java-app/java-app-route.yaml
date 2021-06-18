@@ -1,0 +1,16 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: {{ .Values.microservice.name }}
+    app.kubernetes.io/component: {{ .Values.microservice.name }}
+    app.kubernetes.io/instance: {{ .Values.microservice.name }}
+  name: {{ .Values.microservice.name }}
+spec:
+  port:
+    targetPort: 8080-tcp
+  to:
+    kind: Service
+    name: {{ .Values.microservice.name }}
+    weight: 100
+  wildcardPolicy: None
