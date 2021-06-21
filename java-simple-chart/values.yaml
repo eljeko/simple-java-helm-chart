@@ -8,8 +8,6 @@ image:
   external:    
     repository: image-registry.openshift-image-registry.svc:5000/helm-sandbox/springboot-app:1.0 
   pullPolicy: Always
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
 
 microservice:
   name: springboot-app
