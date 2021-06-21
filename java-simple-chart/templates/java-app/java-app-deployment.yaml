@@ -57,20 +57,28 @@ spec:
             - name: jolokia
               containerPort: 8778
               protocol: TCP
+          {{- if .Values.microservice.livenessProbe }}          
+            {{- if ne .Values.microservice.livenessProbe.path "" }}          
           livenessProbe:
             httpGet:
-              path: /
+              path: {{ .Values.microservice.livenessProbe.path }} 
               port: http
             initialDelaySeconds: 20
             timeoutSeconds: 5
             periodSeconds: 10
             successThreshold: 1
-            failureThreshold: 5              
+            failureThreshold: 5          
+            {{- end }}                
+          {{- end }} 
+          {{- if .Values.microservice.readinessProbe }}                       
+            {{- if ne .Values.microservice.readinessProbe.path "" }}                    
           readinessProbe:
             httpGet:
-              path: /
+              path: {{ .Values.microservice.readinessProbe.path }} 
               port: http
-          resources:
+            {{- end }}                 
+          {{- end }}                 
+          resources:          
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
